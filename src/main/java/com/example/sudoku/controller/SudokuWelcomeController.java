@@ -12,7 +12,7 @@ import java.io.IOException;
 
 public class SudokuWelcomeController {
     @FXML
-    private TextField nicknameTxt;        //final push
+    private TextField nicknameTxt;
 
     @FXML
     void handlePlay(ActionEvent event) throws IOException {
