@@ -5,12 +5,12 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import java.util.ArrayList;
 
-public class GameAbstract implements IGame {
+public abstract class GameAbstract implements IGame {
     protected GridPane boardGridPane;
     protected Board board;
     protected ArrayList<TextField> cells;
 
-    public GameAbstract(GridPane boardGridPane){
+    public GameAbstract(GridPane boardGridPane) {
         this.boardGridPane = boardGridPane;
         this.board = new Board();
         this.cells = new ArrayList<>();
