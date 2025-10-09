@@ -8,38 +8,51 @@ import javafx.scene.layout.GridPane;
 import com.example.sudoku.model.board.Board;
 
 public class Game extends GameAbstract {
-    public Game(GridPane boardGridpane){super(boardGridpane);}
+    public Game(GridPane boardGridpane) {
+        super(boardGridpane);
+    }
 
     @Override
     public void startGame() {
         boardGridPane.getChildren().clear();
-        for (int i = 0; i < board.getBoard().length; i++){
-            for (int j = 0; j < board.getBoard()[i].length; j++){
+        for (int i = 0; i < Board.SIZE; i++) {
+            for (int j = 0; j < Board.SIZE; j++) {
                 TextField cell = new TextField();
-                cell.setAlignment(Pos.CENTER);
-                cell.setPrefWidth(40);
-                cell.setPrefHeight(40);
+                cell.setText(board.getCell(i, j) == 0 ? "" : String.valueOf(board.getCell(i, j)));
 
-                int value = board.getBoard()[i][j];
-                if(value !=0){
-                    cell.setText(String.valueOf(value));
-                    cell.setEditable(false);
-                }
 
                 int row = i;
                 int col = j;
 
-                cell.setOnKeyPressed(event -> {
-                    String input = cell.getText().trim();
-                    if (input.matches("[1-6]")){
-                        int number = Integer.parseInt(input);
-                        if (board.isValidMove(row, col, number)){
-                            board.setValue(row, col, number);
+                cell.setOnKeyReleased(event -> {
+                    String text = cell.getText().trim();
 
+                    if (text.isEmpty()) {
+                        board.setCell(row, col, 0);
+                        cell.setStyle("-fx-background-color: white;");
+                        return;
+                    }
+
+                    if (event.getCode().isDigitKey()) {
+                        try {
+                            int value = Integer.parseInt(text);
+                            if (board.isValid(row, col, value)) {
+                                board.setCell(row, col, value);
+                                cell.setStyle("-fx-background-color: #c3f7b3;"); // Verde si es válido
+                            } else {
+                                cell.setStyle("-fx-background-color: #ffb0b0;"); // Rojo si no
+                            }
+                        } catch (NumberFormatException e) {
+                            cell.setText("");
                         }
+                    } else if (event.getCode() == KeyCode.BACK_SPACE) {
+                        board.setCell(row, col, 0);
+                        cell.setStyle("-fx-background-color: white;");
                     }
                 });
 
+                boardGridPane.add(cell, i, j);
+                cells.add(cell);
             }
         }
     }

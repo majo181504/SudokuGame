@@ -1,6 +1,7 @@
 package com.example.sudoku.model.board;
 
 public interface IBoard {
-    boolean fillBlocks(int blockIndex);
-    boolean isValid(int row, int col, int candidate);
+    boolean isValid(int row, int col, int value);
+    void setCell(int row, int col, int value);
+    int getCell(int row, int col);
 }
