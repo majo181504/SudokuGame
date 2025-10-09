@@ -19,13 +19,16 @@ public class SudokuWelcomeController {
     void handlePlay(ActionEvent event) throws IOException {
         String nickname = nicknameTxt.getText().trim();
 
-        if (nickname.equals("")){
-            SudokuGameStage.getInstance().getController().setUser(new User(nickname));
-            SudokuWelcomeStage.deleteInstance();
-        } else{
+        if (!nickname.isEmpty()) {
+            SudokuGameStage.deleteInstance();
+            SudokuWelcomeStage.getInstance().setTitle("Sudoku Welcome -Jugador: " + nickname);
+        } else {
             new AlertBox().showAlert("Error", "Ingresa un nickname", Alert.AlertType.ERROR);
         }
+    }
 
-
+    @FXML
+private void handleExit(ActionEvent event) {
+    System.exit(0);
     }
 }

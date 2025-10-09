@@ -17,11 +17,20 @@ public class GameAbstract implements IGame {
     }
 
     @Override
-    public void startGame() {}
+    public void undoMove(){
+        board.undoLastMove();
+        refreshBoard();
+    }
+
     @Override
     public void resetGame() {
-        boardGridPane.getChildren().clear();
         board = new Board();
-        cells.clear();
+        refreshBoard();
+    }
+
+    @Override
+    public void refreshBoard() {
+        boardGridPane.getChildren().clear();
+        startGame();
     }
 }
