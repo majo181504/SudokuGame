@@ -20,10 +20,10 @@ public class SudokuWelcomeController {
         String nickname = nicknameTxt.getText().trim();
 
         if (nickname.equals("")){
+            new AlertBox().showAlert("Error", "Ingresa un nickname", Alert.AlertType.ERROR);
+        } else{
             SudokuGameStage.getInstance().getController().setUser(new User(nickname));
             SudokuWelcomeStage.deleteInstance();
-        } else{
-            new AlertBox().showAlert("Error", "Ingresa un nickname", Alert.AlertType.ERROR);
         }
 
 

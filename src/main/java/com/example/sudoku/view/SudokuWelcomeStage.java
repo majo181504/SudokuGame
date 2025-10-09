@@ -1,4 +1,6 @@
 package com.example.sudoku.view;
+import com.example.sudoku.controller.SudokuGameController;
+import com.example.sudoku.controller.SudokuWelcomeController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -8,11 +10,13 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class SudokuWelcomeStage extends Stage{
+    private SudokuWelcomeController controller;
     private SudokuWelcomeStage() throws IOException {
         FXMLLoader loader = new FXMLLoader(
         getClass().getResource("/com/example/sudoku/sudoku-welcome-view.fxml")
         );
         Parent root = loader.load();
+        controller = loader.getController();
         Scene scene = new Scene(root);
         setScene(scene);
 
@@ -24,6 +28,11 @@ public class SudokuWelcomeStage extends Stage{
         );
         show();
     }
+
+    public SudokuWelcomeController getController(){
+        return controller;
+    }
+
 
     private static class Holder {
         private static SudokuWelcomeStage INSTANCE = null;

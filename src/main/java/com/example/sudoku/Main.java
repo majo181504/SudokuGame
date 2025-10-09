@@ -1,6 +1,6 @@
 package com.example.sudoku;
 
-import com.example.sudoku.view.SudokuWelcomeStage;
+import com.example.sudoku.view.WelcomeStage;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
@@ -14,7 +14,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws IOException {
-        SudokuWelcomeStage.getInstance();
+        WelcomeStage.getInstance();
 
     }
 }
