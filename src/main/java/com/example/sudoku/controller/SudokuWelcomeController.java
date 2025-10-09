@@ -1,5 +1,6 @@
 package com.example.sudoku.controller;
 
+import com.example.sudoku.model.user.User;
 import com.example.sudoku.model.utils.AlertBox;
 import com.example.sudoku.view.SudokuGameStage;
 import com.example.sudoku.view.SudokuWelcomeStage;
@@ -19,7 +20,7 @@ public class SudokuWelcomeController {
         String nickname = nicknameTxt.getText().trim();
 
         if (nickname.equals("")){
-            SudokuGameStage.getInstance().getController().fillBoard();
+            SudokuGameStage.getInstance().getController().setUser(new User(nickname));
             SudokuWelcomeStage.deleteInstance();
         } else{
             new AlertBox().showAlert("Error", "Ingresa un nickname", Alert.AlertType.ERROR);
