@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.sudoku.controller.WelcomeController">
+   <children>
+      <ImageView fitHeight="500.0" fitWidth="400.0">
+         <image>
+            <Image url="@imagen%20fondo%201.png" />
+         </image>
+      </ImageView>
+      <Button layoutX="80.0" layoutY="319.0" mnemonicParsing="false" onAction="#handlePlaay" prefHeight="80.0" prefWidth="240.0" style="-fx-background-radius: 40; -fx-background-color: #f7bdbf;" text="PLAY" textFill="#c14c50">
+         <font>
+            <Font name="Franklin Gothic Demi" size="34.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="CLOSED_HAND" />
+         </cursor>
+      </Button>
+   </children>
+</AnchorPane>
