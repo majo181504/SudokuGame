@@ -23,9 +23,7 @@ public class SudokuGameController {
     }
 
     @FXML
-    private void handleHelp(){
-        System.out.println("mostar ayuda del jeugo");
-    }
+    private void handleHelp(){game.helpHints();};
 
     private User user;
     public void setUser(User user){this.user = user;}
