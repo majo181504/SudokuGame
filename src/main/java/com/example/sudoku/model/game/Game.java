@@ -31,9 +31,9 @@ public class Game extends GameAbstract {
             board.setCell(hintRow, hintCol, hintValue);   //Shows the hint's position and value
 
             targetCell.setText(String.valueOf(hintValue));
-            targetCell.setEditable(false);
 
             targetCell.setStyle("-fx-background-color: #ffffa0;");
+            targetCell.setEditable(false);
 
         } else {
             //Any hint is found
@@ -75,6 +75,10 @@ public class Game extends GameAbstract {
                         return;
                     }
 
+                    if (!cell.isEditable()){
+                        return;
+                    }
+
                     if (event.getCode().isDigitKey()) {       //validates whether the text entered by the user is a numeric value
                         try {
                             int value = Integer.parseInt(text);
@@ -88,8 +92,9 @@ public class Game extends GameAbstract {
                         } catch (NumberFormatException e) {     //executes if the user did not enter a numeric value
                             cell.setText("");
                         }
-                    } else if (event.getCode() == KeyCode.BACK_SPACE) {
+                    } else if (event.getCode().isLetterKey()) {
                         board.setCell(row, col, 0);
+                        cell.setText("");
                         cell.setStyle("-fx-background-color: white;");
                     }
                 });
