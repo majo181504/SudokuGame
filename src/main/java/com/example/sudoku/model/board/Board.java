@@ -16,7 +16,7 @@ public class Board implements IBoard{
             }
         }
 
-        int[][] blockStarts = {
+        int[][] blockStarts = {         //Start position of 2x3 grids
                 {0, 0}, {0, 3}, {2, 0}, {2, 3}, {4, 0}, {4, 3}
         };
         Random random = new Random();
@@ -25,11 +25,11 @@ public class Board implements IBoard{
             int startRow = start[0];
             int startCol = start[1];
 
-            List<Integer> candidates = new ArrayList<>();
+            List<Integer> startNumbers = new ArrayList<>();
             for (int n = 1; n <= SIZE; n++) {
-                candidates.add(n);
+                startNumbers.add(n);
             }
-            Collections.shuffle(candidates);
+            Collections.shuffle(startNumbers);
 
             List<Integer> positions = new ArrayList<>();
             for (int p = 0; p < 6; p++) {
@@ -49,9 +49,9 @@ public class Board implements IBoard{
 
                 int currentRow = startRow + deltaRow;
                 int currentCol = startCol + deltaCol;
-                Collections.shuffle(candidates);
+                Collections.shuffle(startNumbers);
 
-                for (int value : candidates) {
+                for (int value : startNumbers) {
                     if (isValid(currentRow, currentCol, value)) {
                         this.board[currentRow][currentCol] = value;
                         placedCounts++;

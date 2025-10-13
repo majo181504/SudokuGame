@@ -15,33 +15,28 @@ public class Game extends GameAbstract {
     public void helpHints(){
         int[] hintData = board.getSomeHint();
 
-        if (hintData != null) {
+        if (hintData != null) {             //returns an array with the hint's value and position
             int hintRow = hintData[0];
             int hintCol = hintData[1];
             int hintValue = hintData[2];
 
-            // El tamaño del tablero es 6
+
             int SIZE = Board.SIZE;
 
-            // 1. Calcular el índice en tu lista lineal 'cells'
-            // cells es una lista que guarda todos los TextFields en orden lineal (fila a fila)
-            int cellIndex = hintRow * SIZE + hintCol;
+            int cellIndex = hintRow * SIZE + hintCol;  //formula for having a single game board index
 
-            // 2. Obtener el TextField y actualizarlo
+            // It gets the hint's index
             TextField targetCell = cells.get(cellIndex);
 
-            // 3. Aplicar el movimiento internamente (usando tu método setCell)
-            board.setCell(hintRow, hintCol, hintValue);
+            board.setCell(hintRow, hintCol, hintValue);   //Shows the hint's position and value
 
-            // 4. Actualizar la interfaz gráfica
             targetCell.setText(String.valueOf(hintValue));
+            targetCell.setEditable(false);
 
-            // 5. Aplicar el estilo de ayuda (o el estilo de celda válida)
-            targetCell.setStyle("-fx-background-color: #ffffa0;"); // Ejemplo: Amarillo claro para ayuda
+            targetCell.setStyle("-fx-background-color: #ffffa0;");
 
         } else {
-            // El tablero está lleno o no se encontró ninguna pista válida.
-            // Aquí podrías mostrar un Alert de JavaFX al usuario.
+            //Any hint is found
             System.out.println("No se puede dar una pista aleatoria en este momento.");
         }
     }
