@@ -10,59 +10,74 @@ public class Board implements IBoard{
 
 
     public void initializeBoard() {
+        fillBoard();
+
+        // Paso 1: Genera una solución completa válida
+        solveSudoku(board);
+
+        // Paso 2: Crea una lista de todas las celdas
+        List<int[]> allCells = new ArrayList<>();
         for (int i = 0; i < SIZE; i++) {
             for (int j = 0; j < SIZE; j++) {
-                this.board[i][j] = 0;
+                allCells.add(new int[]{i, j});
+            }
+        }
+        Collections.shuffle(allCells);
+
+        // Paso 3: Asegura que cada bloque 2x3 tenga al menos 2 celdas visibles
+        boolean[][] keepCell = new boolean[SIZE][SIZE];
+        Random random = new Random();
+
+        // Coordenadas de inicio de cada bloque
+        int[][] blockStarts = {
+                {0, 0}, {0, 3},
+                {2, 0}, {2, 3},
+                {4, 0}, {4, 3}
+        };
+
+        // Garantiza al menos 2 celdas visibles por bloque
+        for (int[] start : blockStarts) {
+            List<int[]> blockCells = new ArrayList<>();
+            for (int i = start[0]; i < start[0] + 2; i++) {
+                for (int j = start[1]; j < start[1] + 3; j++) {
+                    blockCells.add(new int[]{i, j});
+                }
+            }
+            Collections.shuffle(blockCells);
+            for (int k = 0; k < 2; k++) { // 2 celdas por bloque
+                int[] c = blockCells.get(k);
+                keepCell[c[0]][c[1]] = true;
             }
         }
 
-        int[][] blockStarts = {         //Start position of 2x3 grids
-                {0, 0}, {0, 3}, {2, 0}, {2, 3}, {4, 0}, {4, 3}
-        };
-        Random random = new Random();
+        // Paso 4: Mantén algunas celdas extra para dificultad razonable (~12 visibles)
+        int cellsToShow = 12;
+        int alreadyKept = 0;
+        for (boolean[] row : keepCell)
+            for (boolean b : row)
+                if (b) alreadyKept++;
 
-        for (int[] start : blockStarts) {
-            int startRow = start[0];
-            int startCol = start[1];
+        int extraToKeep = Math.max(0, cellsToShow - alreadyKept);
 
-            List<Integer> startNumbers = new ArrayList<>();
-            for (int n = 1; n <= SIZE; n++) {
-                startNumbers.add(n);
+        // Añade algunas más al azar
+        Collections.shuffle(allCells);
+        for (int[] pos : allCells) {
+            if (extraToKeep == 0) break;
+            if (!keepCell[pos[0]][pos[1]]) {
+                keepCell[pos[0]][pos[1]] = true;
+                extraToKeep--;
             }
-            Collections.shuffle(startNumbers);
+        }
 
-            List<Integer> positions = new ArrayList<>();
-            for (int p = 0; p < 6; p++) {
-                positions.add(p);
-            }
-            Collections.shuffle(positions);
-
-            int placedCounts = 0;
-            int maxHints = 2;
-
-            for (int k = 0; k < 2; k++) {
-                if (placedCounts >= maxHints) break;
-
-                int p = positions.get(k);
-                int deltaRow = p / 3;
-                int deltaCol = p % 3;
-
-                int currentRow = startRow + deltaRow;
-                int currentCol = startCol + deltaCol;
-                Collections.shuffle(startNumbers);
-
-                for (int value : startNumbers) {
-                    if (isValid(currentRow, currentCol, value)) {
-                        this.board[currentRow][currentCol] = value;
-                        placedCounts++;
-                        break;
-                    }
+        // Paso 5: Vacía todas las que no se deben mantener
+        for (int i = 0; i < SIZE; i++) {
+            for (int j = 0; j < SIZE; j++) {
+                if (!keepCell[i][j]) {
+                    board[i][j] = 0;
                 }
-
             }
         }
     }
-
 
 
     private static class Move {
@@ -80,16 +95,59 @@ public class Board implements IBoard{
             return 0; // Si ya tiene un número, no hay pista.
         }
 
-        // Iterar sobre todos los posibles valores de 1 a SIZE (que es 6)
-        for (int value = 1; value <= SIZE; value++) {
+        int[][] temp = copyBoard(board);
+        if (solveSudoku(temp)) { // Usa el solver para encontrar una solución completa
+            return temp[row][col]; // Devuelve el valor correcto según la solución real
+        }
+        return 0;
+    }
 
-            // Usamos el método isValid existente para verificar
-            if (isValid(row, col, value)) {
-                return value; // Devuelve el primer valor válido que encuentra
+    // Copia del tablero actual
+    private int[][] copyBoard(int[][] source) {
+        int[][] copy = new int[SIZE][SIZE];
+        for (int i = 0; i < SIZE; i++)
+            System.arraycopy(source[i], 0, copy[i], 0, SIZE);
+        return copy;
+    }
+
+    // Valida una posición dentro del solver
+    private boolean isValidPosition(int[][] grid, int row, int col, int value) {
+        for (int j = 0; j < SIZE; j++)
+            if (grid[row][j] == value && j != col) return false;
+
+        for (int i = 0; i < SIZE; i++)
+            if (grid[i][col] == value && i != row) return false;
+
+        int startRow = (row / 2) * 2;
+        int startCol = (col / 3) * 3;
+        for (int i = startRow; i < startRow + 2; i++)
+            for (int j = startCol; j < startCol + 3; j++)
+                if (grid[i][j] == value && (i != row || j != col)) return false;
+
+        return true;
+    }
+
+    // Solver recursivo (backtracking)
+    private boolean solveSudoku(int[][] grid) {
+        for (int i = 0; i < SIZE; i++) {
+            for (int j = 0; j < SIZE; j++) {
+                if (grid[i][j] == 0) {
+                    List<Integer> nums = new ArrayList<>();
+                    for (int n = 1; n<= SIZE; n++) nums.add(n);
+                    Collections.shuffle(nums); // <-- aleatoriza el orden de prueba
+
+                    for(int num : nums){
+                        if (isValidPosition(grid, i, j, num)) {
+                            grid[i][j] = num;
+                            if (solveSudoku(grid)) return true;
+                            grid[i][j] = 0;
+                        }
+                    }
+                    return false; // No hay número válido para esta celda
+                }
             }
         }
-
-        return 0; // Si el bucle termina sin encontrar un valor válido
+        return true; // Sudoku completado
     }
 
     public int[] getSomeHint(){
