@@ -16,7 +16,7 @@ import java.io.IOException;
 
 
 public class Game extends GameAbstract {
-    public Game(GridPane boardGridpane) {  //constructor of the Game class that receives the GridPane from Board
+    public Game(GridPane boardGridpane) {  //constructor of the Game class that receives the GridPane from Boardkm
         super(boardGridpane);
     }
 
