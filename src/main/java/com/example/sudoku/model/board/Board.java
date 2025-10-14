@@ -1,5 +1,7 @@
 package com.example.sudoku.model.board;
 
+import com.example.sudoku.model.user.User;
+
 import java.util.*;
 
 public class Board implements IBoard{
@@ -236,6 +238,16 @@ public class Board implements IBoard{
             Move LastMove = moveHistory.removeLast();
             board[LastMove.row][LastMove.col] = LastMove.value;
         }
+    }
+
+    public boolean isSolved(){
+        for (int i=0; i<SIZE; i++) {
+            for (int j=0; j<SIZE; j++){
+                if (board[i][j]==0) return false;
+            }
+
+        }
+        return true;
     }
 
     public void clearHistory(){

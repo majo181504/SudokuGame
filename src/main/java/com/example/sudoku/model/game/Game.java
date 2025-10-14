@@ -1,11 +1,19 @@
 package com.example.sudoku.model.game;
 
+import com.example.sudoku.view.FinalStage;
+import com.example.sudoku.view.SudokuGameStage;
+import com.example.sudoku.view.VictoryStage;
 import javafx.event.Event;
+import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.GridPane;
 import com.example.sudoku.model.board.Board;
+import javafx.scene.text.Text;
+
+import java.io.IOException;
+
 
 public class Game extends GameAbstract {
     public Game(GridPane boardGridpane) {  //constructor of the Game class that receives the GridPane from Board
@@ -41,7 +49,16 @@ public class Game extends GameAbstract {
         }
     }
 
+    private void endGame(){
+        try{
+        VictoryStage.getInstance().getController();
+        SudokuGameStage.deleteInstance();
+        }catch (IOException e) {
+            e.printStackTrace();
+        }
 
+
+    }
     @Override
     public void startGame() {
         boardGridPane.getChildren().clear();//Clear the Gridpane to start the game.
@@ -80,7 +97,10 @@ public class Game extends GameAbstract {
                             int value = Integer.parseInt(text);
                             if (board.isValid(row, col, value)) {
                                 board.setCell(row, col, value);
-                                cell.setStyle("-fx-background-color: #c3f7b3;"); // Green in cell if valid
+                                cell.setStyle("-fx-background-color: #c3f7b3;");// Green in cell if valid
+                                if (board.isSolved()){
+                                    endGame();
+                                }
                             } else {
                                 cell.setStyle("-fx-background-color: #ffb0b0;");// Red in cell if not valid
                                 cell.setText("");
@@ -88,11 +108,13 @@ public class Game extends GameAbstract {
                         } catch (NumberFormatException e) {     //executes if the user did not enter a numeric value
                             cell.setText("");
                         }
-                    } else if (event.getCode() == KeyCode.BACK_SPACE) {
+                    } else if (!event.getCode().isDigitKey()) {
+                        cell.setText("");
                         board.setCell(row, col, 0);
                         cell.setStyle("-fx-background-color: white;");
                     }
                 });
+
 
                 boardGridPane.add(cell, j, i);   //boardGridPane.add (node, columnIndex, rowIndex)
                 cells.add(cell);

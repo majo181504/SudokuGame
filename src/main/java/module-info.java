@@ -5,7 +5,6 @@ module com.example.sudoku {
     requires javafx.base;
 
 
-
     opens com.example.sudoku to javafx.fxml;
     opens com.example.sudoku.controller to javafx.fxml;
 

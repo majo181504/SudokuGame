@@ -18,6 +18,7 @@ public class SudokuWelcomeController {
     @FXML
     void handlePlay(ActionEvent event) throws IOException {
         String nickname = nicknameTxt.getText().trim();
+        User.getInstance().setNickname(nickname);
 
         if (nickname.equals("")){
             new AlertBox().showAlert("Error", "Ingresa un nickname", Alert.AlertType.ERROR);
