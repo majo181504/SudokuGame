@@ -43,6 +43,10 @@ public class Game extends GameAbstract {
 
             targetCell.setStyle("-fx-background-color: #ffffa0;");
 
+            if(board.isSolved()){
+                endGame();
+            }
+
         } else {
             //Any hint is found
             System.out.println("No se puede dar una pista aleatoria en este momento.");
@@ -51,14 +55,14 @@ public class Game extends GameAbstract {
 
     private void endGame(){
         try{
-        VictoryStage.getInstance().getController();
+        VictoryStage victory = VictoryStage.getInstance();
+        victory.show();
         SudokuGameStage.deleteInstance();
-        }catch (IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
-
-
     }
+
     @Override
     public void startGame() {
         boardGridPane.getChildren().clear();//Clear the Gridpane to start the game.

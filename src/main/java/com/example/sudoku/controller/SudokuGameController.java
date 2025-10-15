@@ -7,7 +7,7 @@ import com.example.sudoku.view.SudokuGameStage;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.layout.GridPane;
-import javafx.stage.Stage;
+
 
 import java.io.IOException;
 

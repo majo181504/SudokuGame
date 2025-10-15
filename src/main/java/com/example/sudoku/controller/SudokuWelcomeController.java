@@ -8,12 +8,25 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
 
 import java.io.IOException;
 
 public class SudokuWelcomeController {
     @FXML
     private TextField nicknameTxt;
+    @FXML
+    void initialize() {
+        nicknameTxt.setOnKeyPressed(event -> {
+            if (event.getCode() == KeyCode.ENTER) {
+                try {
+                    handlePlay(null);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
 
     @FXML
     void handlePlay(ActionEvent event) throws IOException {

@@ -1,6 +1,5 @@
 package com.example.sudoku.view;
 
-import com.example.sudoku.controller.SudokuGameController;
 import com.example.sudoku.controller.VictoryController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -27,7 +26,7 @@ public class VictoryStage extends Stage {
                 new Image(
                         String.valueOf(getClass().getResource("/com/example/sudoku/sudokuicon.png")))
         );
-        show();
+
     }
 
     public VictoryController getController(){

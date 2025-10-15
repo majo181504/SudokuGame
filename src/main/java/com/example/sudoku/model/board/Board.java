@@ -1,7 +1,5 @@
 package com.example.sudoku.model.board;
 
-import com.example.sudoku.model.user.User;
-
 import java.util.*;
 
 public class Board implements IBoard{
@@ -243,7 +241,9 @@ public class Board implements IBoard{
     public boolean isSolved(){
         for (int i=0; i<SIZE; i++) {
             for (int j=0; j<SIZE; j++){
-                if (board[i][j]==0) return false;
+                int value = board[i][j];
+                if (value==0) return false;
+                if(!isValid(i,j,value))return false;
             }
 
         }
