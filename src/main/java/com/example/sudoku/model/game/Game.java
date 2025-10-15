@@ -98,7 +98,7 @@ public class Game extends GameAbstract {
                             if (board.isValid(row, col, value)) {
                                 board.setCell(row, col, value);
                                 cell.setStyle("-fx-background-color: #c3f7b3;");// Green in cell if valid
-                                if (board.isSolved()){
+                                if (board.isSolved()==true){
                                     endGame();
                                 }
                             } else {
