@@ -23,7 +23,7 @@ public class VictoryController {
      * @throws IOException If there is an issue loading the welcome screen FXML.
      */
     @FXML
-    private void handleStar(ActionEvent event) throws IOException {
+    private void handleStart(ActionEvent event) throws IOException {
         // Close the victory window
         VictoryStage.deleteInstance();
 

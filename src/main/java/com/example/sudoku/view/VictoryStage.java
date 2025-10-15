@@ -26,6 +26,7 @@ public class VictoryStage extends Stage {
                 new Image(
                         String.valueOf(getClass().getResource("/com/example/sudoku/sudokuicon.png")))
         );
+        show();
 
     }
 

@@ -39,9 +39,8 @@ public class Game extends GameAbstract {
             board.setCell(hintRow, hintCol, hintValue);   //Shows the hint's position and value
 
             targetCell.setText(String.valueOf(hintValue));
-            targetCell.setEditable(false);
-
             targetCell.setStyle("-fx-background-color: #ffffa0;");
+            targetCell.setEditable(false);
 
             if(board.isSolved()){
                 endGame();
@@ -70,14 +69,12 @@ public class Game extends GameAbstract {
         for (int i = 0; i < Board.SIZE; i++) {
             for (int j = 0; j < Board.SIZE; j++) {
                 TextField cell = new TextField();
-                cell.setText(board.getCell(i, j) == 0 ? "" : String.valueOf(board.getCell(i, j)));   //checks if the cells are empty, and if not,
-                // displays the number in the cell
+                cell.setText(board.getCell(i, j) == 0 ? "" : String.valueOf(board.getCell(i, j)));   //checks if the cells are empty, and if not, displays the number in the cell
 
                 if (board.getCell(i, j) != 0) {
                     cell.setText(String.valueOf(board.getCell(i, j)));
                     cell.setEditable(false);
                     cell.setStyle("-fx-background-color:  #f6bdd1;");
-
                 } else {
                     cell.setText("");
                     cell.setStyle("-fx-background-color: white;");
@@ -88,36 +85,49 @@ public class Game extends GameAbstract {
                 int col = j;
 
                 cell.setOnKeyReleased(event -> {    //event with the keyboard
-                    String text = cell.getText().trim();
+                            String text = cell.getText().trim();
 
-                    if (text.isEmpty()) {
-                        board.setCell(row, col, 0);
-                        cell.setStyle("-fx-background-color: white;");
-                        return;
-                    }
-
-                    if (event.getCode().isDigitKey()) {       //validates whether the text entered by the user is a numeric value
-                        try {
-                            int value = Integer.parseInt(text);
-                            if (board.isValid(row, col, value)) {
-                                board.setCell(row, col, value);
-                                cell.setStyle("-fx-background-color: #c3f7b3;");// Green in cell if valid
-                                if (board.isSolved()){
-                                    endGame();
-                                }
-                            } else {
-                                cell.setStyle("-fx-background-color: #ffb0b0;");// Red in cell if not valid
-                                cell.setText("");
+                            if (text.isEmpty()) {
+                                board.setCell(row, col, 0);
+                                cell.setStyle("-fx-background-color: white;");
+                                return;
                             }
-                        } catch (NumberFormatException e) {     //executes if the user did not enter a numeric value
-                            cell.setText("");
-                        }
-                    } else if (!event.getCode().isDigitKey()) {
-                        cell.setText("");
-                        board.setCell(row, col, 0);
-                        cell.setStyle("-fx-background-color: white;");
-                    }
-                });
+
+                            if (event.getCode().isDigitKey()) {       //validates whether the text entered by the user is a numeric value
+                                try {
+                                    int value = Integer.parseInt(text);
+                                    if (board.isValid(row, col, value)) {
+                                        board.setCell(row, col, value);
+                                        cell.setStyle("-fx-background-color: #c3f7b3;");// Green in cell if valid
+                                    } else {
+                                        cell.setStyle("-fx-background-color: #ffb0b0;");// Red in cell if not valid
+                                        cell.setText("");
+                                    }
+                                    if (board.isSolved()) {
+                                        endGame();
+                                    }
+                                } catch (NumberFormatException e) {     //executes if the user did not enter a numeric value
+                                    cell.setText("");
+                                }
+
+                            } else if (event.getCode() == KeyCode.BACK_SPACE) {
+                                if (!cell.isEditable()){
+                                    return;
+                                }
+                                cell.setText("");
+                                board.setCell(row, col, 0);
+                                cell.setStyle("-fx-background-color: white;");
+                            }
+                            if(!event.getCode().isDigitKey()){
+                                cell.setText("");
+                                cell.setStyle("-fx-background-color: white;");
+                                board.setCell(row,col,0);
+                            }
+
+                        });;
+
+
+
 
 
                 boardGridPane.add(cell, j, i);   //boardGridPane.add (node, columnIndex, rowIndex)
