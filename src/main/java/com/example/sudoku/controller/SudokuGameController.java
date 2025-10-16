@@ -1,11 +1,14 @@
 package com.example.sudoku.controller;
 
+import com.example.sudoku.model.board.Board;
 import com.example.sudoku.model.user.User;
 import com.example.sudoku.model.game.Game;
 import com.example.sudoku.view.FinalStage;
 import com.example.sudoku.view.SudokuGameStage;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 
 
@@ -21,6 +24,7 @@ public class SudokuGameController {
     @FXML
     private GridPane boardGridPane;
     private Game game;
+    private Board board;
 
     /**
      * Initializes the controller.
@@ -32,14 +36,7 @@ public class SudokuGameController {
       game.startGame();
     }
 
-    /**
-     * Handles the action when the "NUEVO JUEGO" button is pressed.
-     * This method resets the current game and starts a new one.
-     */
-    @FXML
-    private void handleUndo(){
-        game.undoMove();
-    }
+
 
     /**
      * Handles the action when the "AYUDA" button is pressed.
@@ -58,6 +55,60 @@ public class SudokuGameController {
     private void handleExit(ActionEvent event) throws IOException {
         FinalStage.getInstance().getController();
         SudokuGameStage.deleteInstance();
+    }
+
+    /**
+     * Handles the action when the "DESHACER" button is pressed.
+     * @param event
+     * @throws IOException
+     */
+    @FXML
+    private void handleUndo(ActionEvent event) throws IOException {    // Undo the last move (button)
+        game.undoMove();
+        refreshBoardUI();
+    }
+
+    /**
+     * Helper method to get a node from the GridPane by its row and column indices.
+     * @param row
+     * @param column
+     * @param gridPane
+     * @return
+     */
+    private Node getNodeByRowColumnIndex(int row, int column, GridPane gridPane) { // Helper to get row/column node
+        for (Node node : gridPane.getChildren()) {
+            Integer rowIndex = GridPane.getRowIndex(node);
+            Integer colIndex = GridPane.getColumnIndex(node);
+            if ((rowIndex == null ? 0 : rowIndex) == row && (colIndex == null ? 0 : colIndex) == column) {
+                return node;
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Refreshes the UI to reflect the current state of the game board.
+     * This method updates the text fields in the grid pane to match the values in the game board model.
+     */
+    private void refreshBoardUI() {
+        // It makes sure that the board is initialized
+        if (board == null) board = game.getBoard();
+        int size = board.getSize();
+        for (int row = 0; row < size; row++) {
+            for (int col = 0; col < size; col++) {
+                int modelValue = board.getValue(row, col);
+                Node node = getNodeByRowColumnIndex(row, col, boardGridPane);
+                if (node instanceof TextField) {
+                    TextField cell = (TextField) node;
+                    if (modelValue==0){
+                        cell.setText("");
+                        cell.setStyle("-fx-background-color: white;");
+                    } else {
+                        cell.setText(String.valueOf(modelValue));
+                    }
+                }
+            }
+        }
     }
 
     private User user;

@@ -72,6 +72,23 @@ public class Game extends GameAbstract {
     }
 
     /**
+     * Gets the current game board.
+     * @return
+     */
+    public Board getBoard() {
+        return this.board;
+    }
+
+    /**
+     * Undoes the last move made by the player.
+     */
+    public void undoMove() {
+        if (this.board != null) {
+            this.board.undoLastMove();
+        }
+    }
+
+    /**
      * Starts a new game by initializing the board and setting up the UI.
      */
     @Override

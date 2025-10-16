@@ -88,7 +88,15 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </Button>
-      <Button layoutX="346.0" layoutY="467.0" mnemonicParsing="false" onAction="#handleExit" prefHeight="31.0" prefWidth="73.0" style="-fx-background-color: #f7bdbf; -fx-background-radius: 40;" text="SALIR" textFill="#c14c50">
+      <Button layoutX="336.0" layoutY="467.0" mnemonicParsing="false" onAction="#handleExit" prefHeight="31.0" prefWidth="73.0" style="-fx-background-color: #f7bdbf; -fx-background-radius: 40;" text="SALIR" textFill="#c14c50">
+         <font>
+            <Font name="Franklin Gothic Demi" size="12.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
+      <Button layoutX="177.0" layoutY="467.0" mnemonicParsing="false" onAction="#handleUndo" prefHeight="31.0" prefWidth="92.0" style="-fx-background-color: #f7bdbf; -fx-background-radius: 40;" text="DESHACER" textFill="#c14c50">
          <font>
             <Font name="Franklin Gothic Demi" size="12.0" />
          </font>

@@ -293,10 +293,13 @@ public class Board implements IBoard{
     public int getCell(int row, int col) {
         return board[row][col];
     }
-
+    /**
+     * Undoes the last move made on the board by reverting the cell to its previous value.
+     * If there are no moves in the history, the method does nothing.
+     */
     public void undoLastMove(){
         if(!moveHistory.isEmpty()){
-            Move LastMove = moveHistory.removeLast();
+            Move LastMove = moveHistory.pollLast();    //Change
             board[LastMove.row][LastMove.col] = LastMove.value;
         }
     }
@@ -317,6 +320,27 @@ public class Board implements IBoard{
         return true;
     }
 
+    /**
+     * Gets the size of the board.
+     * @return
+     */
+    public int getSize(){
+        return SIZE;
+    }
+
+    /**
+     * Gets the value at a specific row and column, throwing an exception if the coordinates are out of bounds.
+     * @param row
+     * @param col
+     * @return
+     */
+    public int getValue(int row, int col) {
+        if (row < 0 || row >= getSize() || col < 0 || col >= getSize()) {
+            throw new IndexOutOfBoundsException("Coordenadas fuera de rango");
+        }
+        return board[row][col];
+    }
+
     public void clearHistory(){
         moveHistory.clear();
     }
@@ -326,6 +350,6 @@ public class Board implements IBoard{
     }
 
     public Deque<Move> getMoveHistory(){
-        return moveHistory;
+        return new ArrayDeque<>(moveHistory);   //change
     }
 }
