@@ -9,8 +9,19 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
+/**
+ * The VictoryStage class represents the stage displayed when the user wins the Sudoku game.
+ * It follows the singleton design pattern to ensure only one instance of the stage exists.
+ * The stage is initialized with a specific FXML layout and associated controller.
+ */
 public class VictoryStage extends Stage {
     private VictoryController controller;
+
+    /**
+     * Private constructor to initialize the VictoryStage.
+     * Loads the FXML layout, sets up the scene, and configures stage properties.
+     * @throws IOException
+     */
     private VictoryStage() throws IOException {
         FXMLLoader loader = new FXMLLoader(
                 getClass().getResource("/com/example/sudoku/sudoku-victory-view.fxml")
@@ -30,19 +41,36 @@ public class VictoryStage extends Stage {
 
     }
 
+    /**
+     * Gets the controller associated with the VictoryStage.
+     * @return
+     */
     public VictoryController getController(){
         return controller;
     }
 
+    /**
+     * Holder class for implementing the singleton pattern.
+     * Contains a static instance of VictoryStage.
+     */
     private static class Holder {
         private static VictoryStage INSTANCE = null;
     }
+    /**
+     * Provides access to the singleton instance of VictoryStage.
+     * If the instance does not exist, it creates a new one.
+     * @return
+     * @throws IOException
+     */
     public static VictoryStage getInstance() throws IOException{
         VictoryStage.Holder.INSTANCE = VictoryStage.Holder.INSTANCE != null ?
                 VictoryStage.Holder.INSTANCE : new VictoryStage();
         return VictoryStage.Holder.INSTANCE;
     }
 
+    /**
+     * Deletes the current instance of VictoryStage, closing the stage and setting the instance to null.
+     */
     public static void  deleteInstance(){
         VictoryStage.Holder.INSTANCE.close();
         VictoryStage.Holder.INSTANCE = null;
