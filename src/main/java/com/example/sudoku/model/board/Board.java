@@ -310,11 +310,25 @@ public class Board implements IBoard{
         return true;
     }
 
-    public void undoLastMove() {
-        if (!moveHistory.isEmpty()) {
-            Move lastMove = moveHistory.removeLast();
-            board[lastMove.row][lastMove.col] = lastMove.value;
+    /**
+     * Gets the size of the board.
+     * @return
+     */
+    public int getSize() {
+        return SIZE;
+    }
+
+    /**
+     * Gets the value at a specific row and column, throwing an exception if the coordinates are out of bounds.
+     * @param row
+     * @param col
+     * @return
+     */
+    public  int getValue(int row, int col){
+        if (row<0 || row>= getSize() || col<0 || col>= getSize()){
+            throw new IndexOutOfBoundsException("Coordenadas fuera de rango");
         }
+        return board[row][col];
     }
 
     public int [][] getBoard(){

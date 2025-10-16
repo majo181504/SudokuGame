@@ -147,10 +147,4 @@ public class Game extends GameAbstract {
             }
         }
     }
-
-    @Override
-    public void undoMove() {
-        board.undoLastMove();  // Deshace el último movimiento lógico
-        refreshBoard();
-    }
 }

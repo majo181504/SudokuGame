@@ -7,5 +7,4 @@ public interface IGame {
     void startGame();
     void refreshBoard();
     void resetGame();
-    void undoMove();
 }
