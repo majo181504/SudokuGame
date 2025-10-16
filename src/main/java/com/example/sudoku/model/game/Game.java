@@ -1,16 +1,11 @@
 package com.example.sudoku.model.game;
 
-import com.example.sudoku.view.FinalStage;
 import com.example.sudoku.view.SudokuGameStage;
 import com.example.sudoku.view.VictoryStage;
-import javafx.event.Event;
-import javafx.fxml.FXML;
-import javafx.geometry.Pos;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.GridPane;
 import com.example.sudoku.model.board.Board;
-import javafx.scene.text.Text;
 
 import java.io.IOException;
 
