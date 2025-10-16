@@ -5,7 +5,7 @@ import java.util.*;
 
 /**
  * This class represents a 6x6 Sudoku board and provides methods to initialize, validate, and manipulate the board.
- * It includes functionality to generate a valid Sudoku puzzle, check for valid moves, provide hints, and track move history.
+ * It includes functionality to generate a valid Sudoku puzzle, check for valid moves, provide hints.
  */
 public class Board implements IBoard{
 
@@ -294,13 +294,6 @@ public class Board implements IBoard{
         return board[row][col];
     }
 
-    public void undoLastMove(){
-        if(!moveHistory.isEmpty()){
-            Move LastMove = moveHistory.removeLast();
-            board[LastMove.row][LastMove.col] = LastMove.value;
-        }
-    }
-
     /**
      * Checks if the Sudoku puzzle is completely and correctly solved.
      * @return
@@ -317,7 +310,12 @@ public class Board implements IBoard{
         return true;
     }
 
-
+    public void undoLastMove() {
+        if (!moveHistory.isEmpty()) {
+            Move lastMove = moveHistory.removeLast();
+            board[lastMove.row][lastMove.col] = lastMove.value;
+        }
+    }
 
     public int [][] getBoard(){
         return board;

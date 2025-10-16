@@ -50,6 +50,7 @@ public class SudokuGameController {
         SudokuGameStage.deleteInstance();
     }
 
+
     private User user;
 
     /**
