@@ -1,0 +1,8 @@
+module:com.example.sudoku
+com.example.sudoku
+com.example.sudoku.controller
+com.example.sudoku.model.board
+com.example.sudoku.model.game
+com.example.sudoku.model.user
+com.example.sudoku.model.utils
+com.example.sudoku.view
