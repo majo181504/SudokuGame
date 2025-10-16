@@ -59,19 +59,20 @@ public class SudokuGameStage extends Stage {
      * @return
      * @throws IOException
      */
-    public static SudokuGameStage getInstance() throws IOException{
+    public static SudokuGameStage getInstance() throws IOException {
         SudokuGameStage.Holder.INSTANCE = SudokuGameStage.Holder.INSTANCE != null ?
                 SudokuGameStage.Holder.INSTANCE : new SudokuGameStage();
         return SudokuGameStage.Holder.INSTANCE;
     }
-    /**
-     * Deletes the current instance of SudokuGameStage, closing the stage and setting the instance to null.
-     */
-    public static void  deleteInstance(){
-        SudokuGameStage.Holder.INSTANCE.close();
-        Holder.INSTANCE = null;
-    }
 
-}
+        /**
+         * Deletes the current instance of SudokuGameStage, closing the stage and setting the instance to null.
+         */
+        public static void deleteInstance() {
+            SudokuGameStage.Holder.INSTANCE.close();
+            Holder.INSTANCE = null;
+        }
+
+    }
 
 
