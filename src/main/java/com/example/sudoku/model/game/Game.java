@@ -14,12 +14,18 @@ import javafx.scene.text.Text;
 
 import java.io.IOException;
 
-
+/**
+ * The Game class manages the Sudoku game logic, including starting the game, providing hints, and handling user input.
+ * It extends the GameAbstract class and interacts with the Board class to maintain the game state.
+ */
 public class Game extends GameAbstract {
-    public Game(GridPane boardGridpane) {  //constructor of the Game class that receives the GridPane from Boardkm
+    public Game(GridPane boardGridpane) {  //constructor of the Game class that receives the GridPane from Board
         super(boardGridpane);
     }
 
+    /**
+     * Provides a hint to the player by filling in a random empty cell with a valid number.
+     */
     public void helpHints(){
         int[] hintData = board.getSomeHint();
 
@@ -52,6 +58,9 @@ public class Game extends GameAbstract {
         }
     }
 
+    /**
+     * Ends the game and displays the victory stage.
+     */
     private void endGame(){
         try{
         VictoryStage victory = VictoryStage.getInstance();
@@ -62,15 +71,21 @@ public class Game extends GameAbstract {
         }
     }
 
+    /**
+     * Starts a new game by initializing the board and setting up the UI.
+     */
     @Override
     public void startGame() {
         boardGridPane.getChildren().clear();//Clear the Gridpane to start the game.
         board.initializeBoard();
+        /**
+         * Creates a 6x6 grid of TextField cells for the Sudoku board, setting their initial values and styles.
+         * Adds event handlers to each cell to manage user input and validate entries.
+         */
         for (int i = 0; i < Board.SIZE; i++) {
             for (int j = 0; j < Board.SIZE; j++) {
                 TextField cell = new TextField();
                 cell.setText(board.getCell(i, j) == 0 ? "" : String.valueOf(board.getCell(i, j)));   //checks if the cells are empty, and if not, displays the number in the cell
-
                 if (board.getCell(i, j) != 0) {
                     cell.setText(String.valueOf(board.getCell(i, j)));
                     cell.setEditable(false);
@@ -83,7 +98,9 @@ public class Game extends GameAbstract {
 
                 int row = i;
                 int col = j;
-
+                /**
+                 * Event handler for key release events in the cell. Validates user input and updates the board state accordingly.
+                 */
                 cell.setOnKeyReleased(event -> {    //event with the keyboard
                             String text = cell.getText().trim();
 

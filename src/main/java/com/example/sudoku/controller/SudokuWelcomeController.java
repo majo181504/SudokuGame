@@ -12,9 +12,20 @@ import javafx.scene.input.KeyCode;
 
 import java.io.IOException;
 
+/**
+ * Controller class for the Sudoku welcome screen.
+ * This controller manages user interactions on the welcome screen,
+ * including handling the nickname input and starting the game.
+ */
 public class SudokuWelcomeController {
     @FXML
     private TextField nicknameTxt;
+
+    /**
+     * Initializes the controller.
+     * This method is called automatically after the FXML file has been loaded.
+     * It sets up the event handler for the nickname text field to start the game when the Enter key is pressed.
+     */
     @FXML
     void initialize() {
         nicknameTxt.setOnKeyPressed(event -> {
@@ -28,6 +39,14 @@ public class SudokuWelcomeController {
         });
     }
 
+    /**
+     * Handles the action when the "INICIAR" button is pressed or Enter key is hit.
+     * This method retrieves the nickname from the text field, validates it,
+     * and starts the Sudoku game if the nickname is valid. If the nickname is empty,
+     * it shows an error alert.
+     * @param event
+     * @throws IOException
+     */
     @FXML
     void handlePlay(ActionEvent event) throws IOException {
         String nickname = nicknameTxt.getText().trim();
