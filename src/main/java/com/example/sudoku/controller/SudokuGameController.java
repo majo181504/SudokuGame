@@ -4,7 +4,6 @@ import com.example.sudoku.model.user.User;
 import com.example.sudoku.model.game.Game;
 import com.example.sudoku.view.FinalStage;
 import com.example.sudoku.view.SudokuGameStage;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.layout.GridPane;
 
@@ -33,29 +32,20 @@ public class SudokuGameController {
     }
 
     /**
-     * Handles the action when the "NUEVO JUEGO" button is pressed.
-     * This method resets the current game and starts a new one.
-     */
-    @FXML
-    private void handleUndo(){
-        game.undoMove();
-    }
-
-    /**
      * Handles the action when the "AYUDA" button is pressed.
      * This method provides hints to the player.
      */
     @FXML
-    private void handleHelp(){game.helpHints();};
+    private void handleHelp(){
+        game.helpHints();}
 
     /**
      * Handles the action when the "SALIR" button is pressed.
      * This method exits the current game and returns to the final screen.
-     * @param event
      * @throws IOException
      */
     @FXML
-    private void handleExit(ActionEvent event) throws IOException {
+    private void handleExit() throws IOException {
         FinalStage.getInstance().getController();
         SudokuGameStage.deleteInstance();
     }

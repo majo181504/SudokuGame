@@ -317,15 +317,9 @@ public class Board implements IBoard{
         return true;
     }
 
-    public void clearHistory(){
-        moveHistory.clear();
-    }
+
 
     public int [][] getBoard(){
         return board;
-    }
-
-    public Deque<Move> getMoveHistory(){
-        return moveHistory;
     }
 }

@@ -24,7 +24,7 @@ public abstract class GameAbstract implements IGame {
 
     @Override
     public void resetGame() {
-        board = new Board();
+        board.initializeBoard();
         refreshBoard();
     }
 

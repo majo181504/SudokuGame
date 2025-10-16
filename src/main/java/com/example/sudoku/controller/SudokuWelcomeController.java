@@ -44,7 +44,6 @@ public class SudokuWelcomeController {
      * This method retrieves the nickname from the text field, validates it,
      * and starts the Sudoku game if the nickname is valid. If the nickname is empty,
      * it shows an error alert.
-     * @param event
      * @throws IOException
      */
     @FXML
